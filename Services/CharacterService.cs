@@ -53,21 +53,22 @@ namespace DOTNET_RPG.Services.CharacterService
             {
                 Character character = characters.FirstOrDefault(c => c.Id == updatedCharacter.Id);
 
-                character.Name = updatedCharacter.Name;
-                character.Hitpoints = updatedCharacter.Hitpoints;
-                character.Strength = updatedCharacter.Strength;
-                character.Defence = updatedCharacter.Defence;
-                character.Intelligence = updatedCharacter.Intelligence;
-                character.Class = updatedCharacter.Class;
+                // character.Name = updatedCharacter.Name;
+                // character.Hitpoints = updatedCharacter.Hitpoints;
+                // character.Strength = updatedCharacter.Strength;
+                // character.Defence = updatedCharacter.Defence;
+                // character.Intelligence = updatedCharacter.Intelligence;
+                // character.Class = updatedCharacter.Class;
+                // we can do this with the help of automapper too 
+
+                _mapper.Map(updatedCharacter, character);
 
                 response.Data = _mapper.Map<GetCharacterDto>(character);
             }
             catch(Exception ex){
                 response.Success = false;
                 response.Message = ex.Message;
-
             }
-
             return response;
         }
     }
