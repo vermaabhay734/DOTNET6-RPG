@@ -73,7 +73,8 @@ namespace DOTNET_RPG.Services.CharacterService
             ServiceResponse<GetCharacterDto> response = new ServiceResponse<GetCharacterDto>();
             try
             {
-                Character character = characters.FirstOrDefault(c => c.Id == updatedCharacter.Id);
+                var character = await _context.Characters
+                .FirstOrDefaultAsync(c => c.Id == updatedCharacter.Id);
 
                 // character.Name = updatedCharacter.Name;
                 // character.Hitpoints = updatedCharacter.Hitpoints;
@@ -84,6 +85,7 @@ namespace DOTNET_RPG.Services.CharacterService
                 // we can do this with the help of automapper too 
 
                 _mapper.Map(updatedCharacter, character);
+                await _context.SaveChangesAsync();
 
                 response.Data = _mapper.Map<GetCharacterDto>(character);
             }
